@@ -87,3 +87,4 @@ watchdog==3.0.0
 wcwidth==0.2.12
 wheel==0.41.2
 zipp==3.17.0
+seaborn

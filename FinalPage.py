@@ -182,7 +182,7 @@ with tab2:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     data = json.load(file)
     dropdown = tuple(data.keys())
-    selected_artist_name = st.selectbox('Artist', dropdown) 
+    selected_artist_name = st.selectbox('Artist', dropdown, 6) 
 
     if len(data[selected_artist_name].keys()) > 0:
         # Sample data (replace this with your actual data)

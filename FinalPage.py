@@ -127,7 +127,7 @@ with tab1:
     with col2:
         st.write("""#### Top 10 Artists with most songs """)
         figpx = px.bar(df_artists[:10], x = 'artist', y = 'track_count')
-            figpx.update_layout(xaxis_title='Artist', yaxis_title='Number of Tracks')
+        figpx.update_layout(xaxis_title='Artist', yaxis_title='Number of Tracks')
         st.plotly_chart(figpx)
 
 

@@ -70,6 +70,7 @@ with tab1:
         rating_count_year = rating_count_year.reset_index()
         figpx = px.line(rating_count_year, x = 'top_year', y = 'track_popularity', hover_data={'track':True})
         figpx.update_traces(mode="markers+lines")
+        figpx.update_layout(xaxis_title='Year', yaxis_title='Track Popularity')
         st.plotly_chart(figpx)
 
     col1, col2 = st.columns([1,4])
@@ -86,6 +87,7 @@ with tab1:
         rating_count_year = rating_count_year.reset_index()
         figpx = px.line(rating_count_year, x = 'top_year', y = compare_top_songs_feature, hover_data={'track':True})
         figpx.update_traces(mode="markers+lines")
+        figpx.update_layout(xaxis_title='Year', yaxis_title=str(compare_top_songs_feature).capitalize())
         st.plotly_chart(figpx)
 
     col1, col2 = st.columns([1,4])
@@ -119,11 +121,13 @@ with tab1:
     with col1:
         st.write("""#### Top 10 genres with most songs """)
         figpx = px.bar(df_genre[:10], x = 'genre', y = 'track_count')
+        figpx.update_layout(xaxis_title='Genre', yaxis_title='Number of Tracks')
         st.plotly_chart(figpx)
 
     with col2:
         st.write("""#### Top 10 Artists with most songs """)
         figpx = px.bar(df_artists[:10], x = 'artist', y = 'track_count')
+            figpx.update_layout(xaxis_title='Artist', yaxis_title='Number of Tracks')
         st.plotly_chart(figpx)
 
 
@@ -153,14 +157,34 @@ with tab1:
         col11.metric("Valence", "{:.2f}".format(df_artist_selected["valence"].values[0]))
 
 
-    df_eda_top10Tracks = df_eda.sort_values(by='track_popularity', ascending=False)
-    fig = px.parallel_coordinates(df_eda_top10Tracks[:10],
-                                    dimensions=['danceability','energy','loudness', 'speechiness',	'acousticness',	'instrumentalness',	'liveness',	'valence',	'tempo'],
-                                    width=1200, height=600)
-    st.plotly_chart(fig)
+    with st.container():
+        st.write("""#### Parallel Coordinate Plot for the top 10 Songs""")
+        df_eda_top10Tracks = df_eda.sort_values(by='track_popularity', ascending=False)
 
+        fig2 = go.Figure(data=
+        go.Parcoords(
+            dimensions = list([
+                dict(label = 'Danceability', values = df_eda_top10Tracks[:10]['danceability']),
+                dict(label = 'Energy', values = df_eda_top10Tracks[:10]['energy']),
+                dict(label = 'Loudness', values = df_eda_top10Tracks[:10]['loudness']),
+                dict(label = 'Speechiness', values = df_eda_top10Tracks[:10]['speechiness']),
+                dict(label = 'Acousticness', values = df_eda_top10Tracks[:10]['acousticness']),
+                dict(label = 'Instrumentalness', values = df_eda_top10Tracks[:10]['instrumentalness']),
+                dict(label = 'Liveness', values = df_eda_top10Tracks[:10]['liveness']),
+                dict(label = 'Valence', values = df_eda_top10Tracks[:10]['valence']),
+                dict(label = 'Tempo', values = df_eda_top10Tracks[:10]['tempo'])
+            ]),
+            unselected = dict(line = dict(color = 'green', opacity = 0.5))
+            )
+        )
 
-    col1, col2 = st.columns([1,4])
+        fig2.update_layout(
+            plot_bgcolor = 'white',
+            paper_bgcolor = 'white',
+            width = 1200,
+            height = 800
+        )
+        st.plotly_chart(fig2) 
 
     with col1:
         st.write("""#### """)

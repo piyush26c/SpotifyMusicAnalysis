@@ -54,39 +54,39 @@ with tab1:
         if columns:return df_eda[columns].corr()
         else: return df_eda.corr()
 
-    # col1, col2 = st.columns([1,4])
+    col1, col2 = st.columns([1,4])
 
-    # with col1:
-    #     st.write("""#### """)
-    #     year_range = st.slider(label = "Choose the range:",
-    #                                     min_value = 2000,
-    #                                     max_value = 2022,
-    #                                     value = (2000,2022))
+    with col1:
+        st.write("""#### """)
+        year_range = st.slider(label = "Choose the range:",
+                                        min_value = 2000,
+                                        max_value = 2022,
+                                        value = (2000,2022))
 
-    # with col2:
-    #     st.write("""#### Popular songs year by year """)
-    #     rating_count_year = df[df['top_year'].between(*year_range)]\
-    #     .groupby('top_year')['track_popularity', 'track'].max()
-    #     rating_count_year = rating_count_year.reset_index()
-    #     figpx = px.line(rating_count_year, x = 'top_year', y = 'track_popularity', hover_data={'track':True})
-    #     figpx.update_traces(mode="markers+lines")
-    #     st.plotly_chart(figpx)
+    with col2:
+        st.write("""#### Popular songs year by year """)
+        rating_count_year = df[df['top_year'].between(*year_range)]\
+        .groupby('top_year')['track_popularity', 'track'].max()
+        rating_count_year = rating_count_year.reset_index()
+        figpx = px.line(rating_count_year, x = 'top_year', y = 'track_popularity', hover_data={'track':True})
+        figpx.update_traces(mode="markers+lines")
+        st.plotly_chart(figpx)
 
-    # col1, col2 = st.columns([1,4])
+    col1, col2 = st.columns([1,4])
 
-    # with col1:
-    #     st.write("""#### """)
-    #     compare_top_songs_feature = st.selectbox('Choose a feature to compare top songs year by year',
-    #             columns_list, 3) 
+    with col1:
+        st.write("""#### """)
+        compare_top_songs_feature = st.selectbox('Choose a feature to compare top songs year by year',
+                columns_list, 3) 
 
-    # with col2:
-    #     st.write("""#### Track Feature year by year """)
-    #     rating_count_year = df[df['top_year'].between(*year_range)]\
-    #     .groupby('top_year').max()
-    #     rating_count_year = rating_count_year.reset_index()
-    #     figpx = px.line(rating_count_year, x = 'top_year', y = compare_top_songs_feature, hover_data={'track':True})
-    #     figpx.update_traces(mode="markers+lines")
-    #     st.plotly_chart(figpx)
+    with col2:
+        st.write("""#### Track Feature year by year """)
+        rating_count_year = df[df['top_year'].between(*year_range)]\
+        .groupby('top_year').max()
+        rating_count_year = rating_count_year.reset_index()
+        figpx = px.line(rating_count_year, x = 'top_year', y = compare_top_songs_feature, hover_data={'track':True})
+        figpx.update_traces(mode="markers+lines")
+        st.plotly_chart(figpx)
 
     col1, col2 = st.columns([1,4])
 

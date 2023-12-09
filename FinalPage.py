@@ -184,8 +184,9 @@ with tab1:
             width = 1200,
             height = 800
         )
-        st.plotly_chart(fig2) 
+        st.plotly_chart(fig2)
 
+    col1, col2 = st.columns([1,4])
     with col1:
         st.write("""#### """)
         columns_selected = st.multiselect('Choose Columns for Correlation:',

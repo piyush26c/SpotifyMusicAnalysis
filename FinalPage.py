@@ -182,7 +182,8 @@ with tab1:
             plot_bgcolor = 'white',
             paper_bgcolor = 'white',
             width = 1200,
-            height = 800
+            height = 800,
+            margin=dict(l=25, r=25)
         )
         st.plotly_chart(fig2)
 

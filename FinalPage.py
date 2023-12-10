@@ -77,15 +77,15 @@ with tab1:
 
     with col1:
         st.write("""#### """)
-        compare_top_songs_feature = st.selectbox('Choose a feature to compare top songs year by year',
+        compare_top_songs_feature = st.selectbox('Choose a feature to compare year by year',
                 columns_list, 3) 
 
     with col2:
         st.write("""#### Track Feature year by year """)
         rating_count_year = df[df['top_year'].between(*year_range)]\
-        .groupby('top_year').max()
+        .groupby('top_year')[compare_top_songs_feature].mean()
         rating_count_year = rating_count_year.reset_index()
-        figpx = px.line(rating_count_year, x = 'top_year', y = compare_top_songs_feature, hover_data={'track':True})
+        figpx = px.line(rating_count_year, x = 'top_year', y = compare_top_songs_feature)
         figpx.update_traces(mode="markers+lines")
         figpx.update_layout(xaxis_title='Year', yaxis_title=str(compare_top_songs_feature).capitalize())
         st.plotly_chart(figpx)
@@ -305,3 +305,9 @@ with tab4:
     barfig = px.bar(artist_popularity, x=artist_popularity['Popularity'], y=artist_popularity['TrackName'], title=f'Top 10 Track Name in {selected_year}', labels={'Popularity': 'Average Popularity'},orientation='h',hover_data=['Artist','Popularity'],color_discrete_sequence=custom_colors)
     barfig.update_layout(yaxis_categoryorder='total ascending')
     st.plotly_chart(barfig)
+
+st.markdown(
+        '<div style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);">'
+        'Made with ❤️ Piyush Rajendra Chaudhari, Shanthan Reddy, Aniruddho Chatterjee, Het Vashi</div>',
+        unsafe_allow_html=True
+    )

@@ -254,54 +254,19 @@ with tab2:
     file.close()
 
 with tab3:
-    result_df = pd.read_csv('top_songs_by_country.csv')
+        # Assuming result_df is your DataFrame
+    result_df = pd.read_csv('top_songs_country.csv')
     result_df['Genres'] = result_df['Genres'].str.split(', ')
 
-    df_bangladesh = result_df[result_df['country'] == 'Bangladesh']
-    df_india = result_df[result_df['country'] == 'India']
-    df_usa = result_df[result_df['country'] == 'Usa']
-
-    # Get unique countries
+        # Get unique countries
     unique_countries = result_df['country'].unique()
 
-    # # Get top 10 genres for each country
-    # top_genres_bangladesh = df_bangladesh['Genres'].explode().value_counts().nlargest(10).index
-    # top_genres_usa = df_usa['Genres'].explode().value_counts().nlargest(10).index
-    # top_genres_india = df_india['Genres'].explode().value_counts().nlargest(10).index
+    # Get top 10 genres for each country
+    top_genres_by_country = {}
 
-
-    # # Create subplot
-    # fig = go.Figure()
-
-    # # Add initial bar chart
-    # fig.add_trace(go.Bar(x=top_genres_bangladesh,
-    #                     y=df_bangladesh['Genres'].explode().value_counts().nlargest(10).values,
-    #                     name='Bangladesh',
-    #                     marker_color='skyblue'))
-
-    # # Add dropdown filter for country
-    # country_dropdown_options = [{'label': country, 'method': 'update',
-    #                             'args': [{'x': [top_genres_bangladesh if country == 'Bangladesh' else top_genres_usa if country == 'USA' else top_genres_india  ],
-    #                                     'y': [df_bangladesh['Genres'].explode().value_counts().nlargest(10).values if country == 'Bangladesh' else df_usa['Genres'].explode().value_counts().nlargest(10).values if country == 'USA' else df_india['Genres'].explode().value_counts().nlargest(10).values ],
-    #                                     'marker_color': 'skyblue'},
-    #                                     {'title.text': f'Top 10 Genre Distribution for {country}'}]} for country in unique_countries]
-
-    # # Update layout with dropdown
-    # fig.update_layout(
-    #     updatemenus=[
-    #         dict(type='dropdown', x=0.35, y=1.28, buttons=country_dropdown_options, showactive=False)
-    #     ],
-    #     title_text='Top 10 Genre Distribution',
-    #     xaxis_title='Genres',
-    #     yaxis_title='Count',
-    #     showlegend=False,
-    #     width=1200,  # Adjust the width as needed
-    #     height=500,  # Adjust the height as needed
-    # )
-
-    # Show the plot
-    # fig.show()
-    # st.write(fig)
+    for country in unique_countries:
+        df_country = result_df[result_df['country'] == country]
+        top_genres_by_country[country] = df_country['Genres'].explode().value_counts().nlargest(10).index
 
     # result_df
     selected_country = st.selectbox("Select Country", unique_countries, 1)
